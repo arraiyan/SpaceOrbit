@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Space orbit</title>
+</head>
+
+<body style="text-align: center">
+    <canvas id="unity-canvas" style="height:600px;width:400px;background: #231F20"></canvas> 
+    <!-- width: 480px; height: 800px;  -->
+    <script src="Build/webgl.loader.js"></script>
+    <script>
+
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+            dataUrl: "Build/webgl.data",
+            frameworkUrl: "Build/webgl.framework.js",
+            codeUrl: "Build/webgl.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Champiooon",
+            productName: "Space orbit",
+            productVersion: "1.0",
+            // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+            // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+        }).then((unityInstance) => {
+            myGameInstance = unityInstance;
+
+        });
+
+        let params = new URLSearchParams(location.search);
+        var user_id_ = params.get('user_id');
+        var inline_message_id = params.get('inline_message_id');
+        var object = { user_id: user_id_, inline_message_id: inline_message_id };
+        var data_json = JSON.stringify(object);
+
+
+
+
+
+        ///////////////////////// 
+        window.ontouchend = function (event) {
+            console.log("clicked");
+            console.log(user_id_);
+            console.log(inline_message_id);
+            var object = { user_id: user_id_, inline_message_id: inline_message_id };
+            var data_json = JSON.stringify(object);
+            myGameInstance.SendMessage('GameController', 'SendJson', data_json);
+        };
+        window.onclick = function (event) {
+            console.log("clicked");
+            console.log(user_id_);
+            console.log(inline_message_id);
+            var object = { user_id: user_id_, inline_message_id: inline_message_id };
+            var data_json = JSON.stringify(object);
+            myGameInstance.SendMessage('GameController', 'SendJson', data_json);
+        };
+    </script>
+</body>
+
+</html>
